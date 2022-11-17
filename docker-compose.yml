@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  database:
+    container_name: database
+    hostname: localhost
+    image: postgres
+    volumes:
+      - ./data/database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+  api:
+    build: ./api
+    container_name: api
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    networks:
+      - postgres
+    links:
+      - database
+    depends_on:
+      - database
+    env_file:
+      - .env
+
+  client:
+    build: ./client
+    command:
+      - npm start
+    restart: always
+    container_name: client
+    ports:
+      - '3000:3000'
+    volumes:
+      - client/src/App
+      - /app/node_modules
+    stdin_open: true
+    env_file:
+      - .env
+    tty: true
+
+networks:
+  postgres:
+    driver: bridge
