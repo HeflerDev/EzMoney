@@ -1,0 +1,31 @@
+.btn {
+  border: none;
+  padding: 5px 10px;
+  outline: none;
+  background-color: transparent;
+  color: $dark;
+
+  &__primary {
+    @extend .btn;
+  }
+
+  &__secondary {
+    @extend .btn;
+  }
+
+  &__complementary {
+    @extend .btn;
+  }
+
+  &__accent {
+    @extend .btn;
+  }
+
+  &__light {
+    @extend .btn;
+  }
+
+  &__dark {
+    @extend .btn;
+  }
+}
