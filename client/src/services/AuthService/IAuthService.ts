@@ -1,6 +1,15 @@
 // TODO: Type accordingly
+export interface LoginPayload {
+    email: string
+    password: string
+}
+
 export default interface IAuthService {
-    Login(payload: any): Promise<any>
+    success: boolean
+
+    Login(payload: LoginPayload): Promise<any>
+
     Register(payload: any): Promise<any>
+
     Logout(): Promise<any>
 }

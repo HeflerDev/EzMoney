@@ -1,43 +1,57 @@
 const prod = process.env.NODE_ENV === 'production';
+const path = require("path")
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  mode: prod ? 'production' : 'development',
-  entry: './src/index.tsx',
-  output: {
-    path: __dirname + '/dist/',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
-        resolve: {
-          extensions: ['.ts', '.tsx', '.js', '.json'],
-        },
-        use: 'ts-loader',
-      },
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-            "style-loader",
-            "css-loader",
-            "sass-loader",
+    mode: prod ? 'production' : 'development',
+    entry: './src/index.tsx',
+    output: {
+        path: __dirname + '/dist/',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(ts|tsx)$/,
+                exclude: /node_modules/,
+                resolve: {
+                    extensions: ['.ts', '.tsx', '.js', '.json'],
+                    alias: {
+                        "@": path.resolve(__dirname, './')
+                    }
+                },
+                use: 'ts-loader',
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                loader: "file-loader",
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                resolve: {
+                    extensions: ['.scss'],
+                    alias: {
+                        style: path.resolve(__dirname, "src/assets")
+                    }
+                },
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader",
+                ]
+            }
         ]
-      }
-    ]
-  },
-  devtool: prod ? undefined : 'source-map',
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.html',
-    }),
-    new MiniCssExtractPlugin(),
-  ],
+    },
+    devtool: prod ? undefined : 'source-map',
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+        }),
+        new MiniCssExtractPlugin(),
+    ],
 };

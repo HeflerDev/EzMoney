@@ -1,31 +1,45 @@
-.btn {
+@use "../variables/colors";
+
+.button {
   border: none;
   padding: 5px 10px;
   outline: none;
-  background-color: transparent;
-  color: $dark;
+  color: colors.$dark;
+  border-radius: 5px;
 
   &__primary {
-    @extend .btn;
+    @extend .button;
+    background-color: colors.$primary;
+    color: colors.$light;
   }
 
   &__secondary {
-    @extend .btn;
+    @extend .button;
+    background-color: colors.$secondary;
+    color: colors.$light;
   }
 
   &__complementary {
-    @extend .btn;
+    @extend .button;
+    background-color: colors.$complementary;
+    color: colors.$light;
   }
 
   &__accent {
-    @extend .btn;
+    @extend .button;
+    background-color: colors.$accent;
+    color: colors.$light;
   }
 
   &__light {
-    @extend .btn;
+    @extend .button;
+    background-color: colors.$light;
+    color: colors.$dark;
   }
 
   &__dark {
-    @extend .btn;
+    @extend .button;
+    background-color: colors.$dark;
+    color: colors.$light;
   }
 }

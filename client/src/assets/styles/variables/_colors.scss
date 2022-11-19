@@ -1,6 +1,8 @@
-$primary: #04d9d9;
-$secondary: #5392cc;
-$complementary: #a24bbf;
-$accent: #f205b3;
-$light: #fff;
-$dark: #333;
+@use "../patterns/colors";
+
+$primary: colors.$primary;
+$secondary: colors.$secondary;
+$complementary: colors.$complementary;
+$accent: colors.$accent;
+$light: colors.$light;
+$dark: colors.$dark;

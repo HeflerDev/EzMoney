@@ -1,0 +1,29 @@
+@use "../variables/colors";
+
+.input {
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  padding: 5px 20px;
+  width: 100%;
+  font-weight: bold;
+
+  &__primary {
+    @extend .input;
+    background-color: colors.$primary;
+    color: colors.$light;
+  }
+
+  &__secondary {
+    @extend .input;
+    background-color: colors.$secondary;
+    color: colors.$light;
+  }
+
+  &__accent {
+    @extend .input;
+    background-color: colors.$accent;
+    color: colors.$light;
+  }
+}

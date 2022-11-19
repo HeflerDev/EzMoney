@@ -1,18 +1,19 @@
-import IAuthService from "./IAuthService";
+import IAuthService, {LoginPayload} from "./IAuthService";
 
 export default class AuthService implements IAuthService {
-   Login(payload: any): Promise<any> {
-      // TODO: Login Function
-      return Promise.resolve(undefined);
-   }
+    public success!: boolean;
 
-   Logout(): Promise<any> {
-      // TODO: Logout function
-      return Promise.resolve(undefined);
-   }
+    public Login(payload: LoginPayload): Promise<any> {
+        return Promise.resolve(undefined);
+    }
 
-   Register(payload: any): Promise<any> {
-      // TODO: Register function
-      return Promise.resolve(undefined);
-   }
+    public Logout(): Promise<any> {
+        // TODO: Logout function
+        return Promise.resolve(undefined);
+    }
+
+    public Register(payload: any): Promise<any> {
+        // TODO: Register function
+        return Promise.resolve(undefined);
+    }
 }
