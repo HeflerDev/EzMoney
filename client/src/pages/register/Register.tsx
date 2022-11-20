@@ -4,6 +4,7 @@ import {Form} from "./components"
 // @ts-ignore
 import {WomanBg} from "@/src/assets/images/Images";
 import "@/src/assets/styles/pages/Register.scss";
+import {Stack} from "react-bootstrap";
 
 const Register = () => {
     return (
