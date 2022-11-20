@@ -1,8 +1,8 @@
-// @ts-ignore
-import React from "react";
+import * as React from "react";
 import {Form} from "./components";
 import {Stack} from "react-bootstrap";
-import "./Login.scss"
+import "@/src/assets/styles/pages/Login.scss"
+// @ts-ignore
 import {ManBg} from "@/src/assets/images/Images";
 
 const Login = (): JSX.Element => {

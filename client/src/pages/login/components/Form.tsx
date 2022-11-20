@@ -18,8 +18,8 @@ export const Form = (): JSX.Element => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className={"login-form"}>
-            <Container>
+        <Container>
+            <form onSubmit={handleSubmit} className={"login-form"}>
                 <Row>
                     <Col xs={12} className={"field"}>
                         <Stack>
@@ -49,7 +49,7 @@ export const Form = (): JSX.Element => {
                         </Stack>
                     </Col>
                 </Row>
-            </Container>
-        </form>
+            </form>
+        </Container>
     )
 }

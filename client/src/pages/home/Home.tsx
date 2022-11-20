@@ -4,7 +4,7 @@ import React from "react";
 import {ContentPayload} from "@/src/lib/Home";
 import {Stack} from "react-bootstrap";
 import {Header} from "./components";
-import "./Home.scss"
+import "@/src/assets/styles/pages/Home.scss"
 
 const Home = (): JSX.Element => {
     const headerContent: ContentPayload = {

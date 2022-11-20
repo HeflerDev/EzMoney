@@ -1,14 +1,19 @@
 // @ts-ignore
 import React from "react";
-import {Col, Row, Stack} from "react-bootstrap";
 import {Form} from "./components"
+// @ts-ignore
+import {WomanBg} from "@/src/assets/images/Images";
+import "@/src/assets/styles/pages/Register.scss";
 
 const Register = () => {
     return (
         <Stack>
             <div className="img-container">
-                <Form/>
+                <WomanBg className={"img"}/>
             </div>
+            <Stack className="form-container">
+                <Form/>
+            </Stack>
         </Stack>
     )
 }
