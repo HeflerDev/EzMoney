@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:
-    hostname: localhost
+    hostname: postgres
     image: postgres
     volumes:
       - ./data/database:/var/lib/postgresql/data
@@ -12,6 +12,7 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+
   api:
     build: ./api
     container_name: api
@@ -20,6 +21,9 @@ services:
     volumes:
       - ./api:/app
       - /app/node_modules
+    expose:
+      - '4000'
+    command: npm run dev
     networks:
       - postgres
     links:
@@ -36,7 +40,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - client/src/App
+      - /client/src/App
       - /client/node_modules
     stdin_open: true
     env_file:

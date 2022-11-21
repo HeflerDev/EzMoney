@@ -1,11 +1,12 @@
 import express from "express";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import db from "@/src/config/Database";
-import router from "@/src/routes";
+import db from "config/Database";
+import router from "./routes";
 
 dotenv.config();
+console.log("===================================", process.env)
 const app = express();
 
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));

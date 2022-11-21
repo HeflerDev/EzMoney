@@ -1,18 +1,18 @@
-import {Sequelize, DataTypes, ModelCtor, Model} from "sequelize";
-import db from "@/src/config/Database";
-import User from "@/../lib/User";
+import {Model, InferAttributes, InferCreationAttributes, Optional, CreationOptional} from "sequelize";
+import db from "../config/Database";
+import Account from "./Account";
 
-const Users: ModelCtor<Model> = db.define("users", {
-    username: {type: DataTypes.STRING},
-    email: {type: DataTypes.STRING},
-    password: {type: DataTypes.STRING},
-    refresh_token: {type: DataTypes.TEXT}
-}, {
-    freezeTableName: true
-});
+export default class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+    declare id: CreationOptional<number>
+    declare username: string
+    declare password: string
+    declare refresh_token: CreationOptional<string>
+    declare account_id: number
+}
+
+User.hasOne(Account);
+User.belongsTo(Account);
 
 (async () => {
     await db.sync();
 })();
-
-export default Users
