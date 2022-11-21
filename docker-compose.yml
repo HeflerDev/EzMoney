@@ -1,7 +1,6 @@
 version: '3.8'
 services:
-  database:
-    container_name: database
+  db:
     hostname: localhost
     image: postgres
     volumes:
@@ -24,23 +23,21 @@ services:
     networks:
       - postgres
     links:
-      - database
+      - db
     depends_on:
-      - database
+      - db
     env_file:
       - .env
 
   client:
     build: ./client
-    command:
-      - npm start
     restart: always
     container_name: client
     ports:
       - '3000:3000'
     volumes:
       - client/src/App
-      - /app/node_modules
+      - /client/node_modules
     stdin_open: true
     env_file:
       - .env

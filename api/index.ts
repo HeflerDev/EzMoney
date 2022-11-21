@@ -1,15 +1,18 @@
-import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
+import express from "express";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import db from "@/src/config/Database";
+import router from "@/src/routes";
 
 dotenv.config();
+const app = express();
 
-const app: Express = express();
-const port = process.env.PORT;
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cookieParser());
+app.use(express.json());
+app.use(router);
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Server Up');
-});
-
-app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
+app.listen(4000, () => {
+    console.log(`⚡️[server]: Server is running at https://localhost:${4000}`);
 });
