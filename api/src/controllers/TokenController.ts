@@ -1,4 +1,4 @@
-import Users from "@/src/models/User";
+import Users from "../models/User";
 import jwt from "jsonwebtoken";
 import express from "express";
 
@@ -12,11 +12,13 @@ export const refreshToken = async (req: express.Request, res: express.Response) 
             }
         });
         if (!user[0]) return res.sendStatus(403);
+        // @ts-ignore
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if (err) return res.sendStatus(403);
             const userId = user[0].id;
             const name = user[0].name;
             const email = user[0].email;
+            // @ts-ignore
             const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET, {
                 expiresIn: '15s'
             });
