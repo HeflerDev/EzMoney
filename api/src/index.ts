@@ -6,7 +6,6 @@ import db from "config/Database";
 import router from "./routes";
 
 dotenv.config();
-console.log("===================================", process.env)
 const app = express();
 
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
