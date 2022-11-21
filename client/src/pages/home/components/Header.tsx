@@ -1,5 +1,5 @@
 import React from "react";
-import {ContentPayload} from "src/lib/Home";
+import {ContentPayload} from "../../../../../lib/Home";
 import {Col, Container, Row, Stack} from "react-bootstrap";
 import {HeaderBg} from "@/src/assets/images/Images";
 import {NavigateFunction, useNavigate} from "react-router-dom";

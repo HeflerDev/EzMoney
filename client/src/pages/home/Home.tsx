@@ -1,7 +1,7 @@
 // @ts-ignore
 import React from "react";
 // @ts-ignore
-import {ContentPayload} from "@/src/lib/Home";
+import {ContentPayload} from "@/../../../../lib/Home";
 import {Stack} from "react-bootstrap";
 import {Header} from "./components";
 import "@/src/assets/styles/pages/Home.scss"

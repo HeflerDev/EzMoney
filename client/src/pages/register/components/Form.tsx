@@ -2,7 +2,7 @@ import * as React from "react";
 import {Col, Container, Row, Stack} from "react-bootstrap";
 import AuthService from "@/src/services/AuthService/AuthService";
 import {useState} from "react";
-import User from "@/src/lib/User";
+import User from "@/../../../../../lib/User";
 import {useNavigate} from "react-router-dom";
 
 export const Form = (): JSX.Element => {
