@@ -1,5 +1,4 @@
 import Users from "../../models/User";
-import express, {RequestHandler, Response} from "express";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import * as dotenv from "dotenv"
@@ -53,11 +52,11 @@ export default class UserController implements IUserController {
         });
         if (!user[0]) return res.sendStatus(204);
         const userId = user[0].id;
-        await Users.update({refresh_token: null}, {
-            where: {
-                id: userId
-            }
-        });
+        // await Users.update({refresh_token: null}, {
+        //     where: {
+        //         id: userId
+        //     }
+        // });
         res.clearCookie('refreshToken');
         return res.sendStatus(200);
         return Promise.resolve(undefined);
@@ -90,14 +89,4 @@ export default class UserController implements IUserController {
             console.log(error);
         }
     }
-
 }
-
-// export const Register: RequestHandler = async (req: express.Request, res: express.Response) => {
-// }
-//
-// export const Login: RequestHandler = async (req: express.Request, res: express.Response) => {
-// }
-//
-// export const Logout: RequestHandler = async (req: express.Request, res: express.Response) => {
-// }

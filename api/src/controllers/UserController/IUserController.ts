@@ -1,4 +1,4 @@
-import express, {RequestHandler} from "express";
+import express from "express";
 
 export default interface IUserController {
     Users(req: express.Request, res: express.Response): Promise<void>
