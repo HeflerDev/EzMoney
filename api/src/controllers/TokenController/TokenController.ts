@@ -21,7 +21,7 @@ export default class TokenController implements ITokenController {
                 const name = user[0].name;
                 const email = user[0].email;
                 // @ts-ignore
-                const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET, {
+                const accessToken: jwt.JwtPayload = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET, {
                     expiresIn: '15s'
                 });
                 res.json({accessToken});

@@ -1,14 +1,16 @@
 import express from "express";
-import {getUsers, Register, Login, Logout} from "../controllers/UserController/UserController";
+import UserController from "../controllers/UserController/UserController";
+import TokenController from "../controllers/TokenController/TokenController";
 import {verifyToken} from "../middleware/verifyToken";
-import {refreshToken} from "../controllers/TokenController/TokenController";
 
 const router: express.Router = express.Router();
+const userController: UserController = new UserController();
+const tokenController: TokenController = new TokenController();
 
-router.get('/users', verifyToken, getUsers);
-router.post('/users', Register);
-router.post('/login', Login);
-router.get('/token', refreshToken);
-router.delete('/logout', Logout);
+router.get('/users', verifyToken, userController.Users);
+router.post('/users', userController.Register);
+router.post('/login', userController.Login);
+router.delete('/logout', userController.Logout);
+router.get('/token', tokenController.RefreshToken);
 
 export default router;

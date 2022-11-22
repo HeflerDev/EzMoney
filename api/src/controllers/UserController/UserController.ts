@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken"
 import * as dotenv from "dotenv"
 import IUserController from "./IUserController";
 import e from "express";
+import Account from "../../models/Account";
 
 dotenv.config()
 
@@ -63,7 +64,7 @@ export default class UserController implements IUserController {
     }
 
     public async Register(req: e.Request, res: e.Response): Promise<void | e.Response> {
-        const {name, accountId, password, confPassword} = req.body;
+        const {name, password, confPassword} = req.body;
         if (password !== confPassword) return res.status(400).send("Password and Confirm Password do not match");
         const salt = await bcrypt.genSalt();
         const hashPassword = await bcrypt.hash(password, salt);
@@ -71,8 +72,8 @@ export default class UserController implements IUserController {
             await Users.create({
                 username: name,
                 password: hashPassword,
-                account_id: accountId
-            });
+            }).then(res => res.createAccount())
+
             res.json({msg: "Registration Successful"})
         } catch (error) {
             console.log(error);

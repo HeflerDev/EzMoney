@@ -1,19 +1,39 @@
-import {CreationOptional, InferAttributes, InferCreationAttributes, Model} from "sequelize";
-import db from "../config/Database";
+import {
+    CreationOptional,
+    DataTypes,
+    ForeignKey, HasManyAddAssociationMixin, HasManyGetAssociationsMixin,
+    InferAttributes,
+    InferCreationAttributes,
+    Model,
+    NonAttribute
+} from "sequelize";
+import sequelize from "../config/Database";
 import Transaction from "./Transaction";
-import User from "./User";
 
 export default class Account extends Model<InferAttributes<Account>, InferCreationAttributes<Account>> {
     declare id: CreationOptional<number>
     declare balance: number
-    declare user_id: number
-    declare transaction_id: CreationOptional<number>
+    declare transactions?: NonAttribute<Transaction[]>
+    declare createdAt: CreationOptional<Date>
+    declare updatedAt: CreationOptional<Date>
+    declare addTransaction: HasManyAddAssociationMixin<Transaction, number>
+    declare getTransaction: HasManyGetAssociationsMixin<Transaction>
 }
 
-Account.hasOne(User);
-Account.belongsTo(User);
-Account.hasMany(Transaction);
+Account.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    balance: {
+        type: new DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 100
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
+}, {tableName: 'accounts', sequelize});
 
-(async () => {
-    await db.sync();
-})();
+Transaction.belongsTo(Account);
+Account.hasMany(Transaction, {sourceKey: "id", foreignKey: "AccountId", as: 'transactions'});
