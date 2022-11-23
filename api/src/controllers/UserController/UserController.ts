@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken"
 import * as dotenv from "dotenv"
 import IUserController from "./IUserController";
 import e from "express";
-import Account from "../../models/Account";
 
 dotenv.config()
 
@@ -13,7 +12,7 @@ export default class UserController implements IUserController {
         try {
             const user: Array<any> = await Users.findAll({
                 where: {
-                    username: req.body.username
+                    username: req.body.name
                 }
             });
             const match = await bcrypt.compare(req.body.password, user[0].password);
@@ -21,11 +20,11 @@ export default class UserController implements IUserController {
             const userId = user[0].id;
             const name = user[0].name;
             // @ts-ignore
-            const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET, {
+            const accessToken = jwt.sign({userId, name}, process.env.ACCESS_TOKEN_SECRET, {
                 expiresIn: '15s'
             });
             // @ts-ignore
-            const refreshToken = jwt.sign({userId, name, email}, process.env.REFRESH_TOKEN_SECRET, {
+            const refreshToken = jwt.sign({userId, name}, process.env.REFRESH_TOKEN_SECRET, {
                 expiresIn: '1d'
             });
             await Users.update({refresh_token: refreshToken}, {
@@ -39,7 +38,7 @@ export default class UserController implements IUserController {
             });
             res.json({accessToken});
         } catch (error) {
-            res.status(404).json({msg: "Email not found"});
+            res.status(404).json({msg: "User not found"});
         }
     }
 

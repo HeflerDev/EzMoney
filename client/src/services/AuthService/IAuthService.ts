@@ -1,6 +1,6 @@
 // TODO: Type accordingly
 export interface LoginPayload {
-    email: string
+    name: string
     password: string
 }
 

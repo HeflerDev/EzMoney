@@ -2,24 +2,32 @@ import * as React from "react";
 import {Col, Container, Row, Stack} from "react-bootstrap";
 import AuthService from "@/src/services/AuthService/AuthService";
 import {useState} from "react";
-import User from "@/../../../../../lib/User";
 import {useNavigate} from "react-router-dom";
+
+interface UserData {
+    name: string
+    password: string
+    confPassword: string
+}
 
 export const Form = (): JSX.Element => {
     const navigate = useNavigate()
-    const [data, setData] = useState<User>({
-        username: "",
-        email: "",
-        password: ""
+    const [data, setData] = useState<UserData>({
+        name: "",
+        password: "",
+        confPassword: ""
     })
-    const [passwordConf, setPasswordConf] = useState<string>("")
+    const [error, setError] = useState<string>("")
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const auth = new AuthService()
+        if (data.password !== data.confPassword) return setError("Password mismatch")
         await auth.Register(data)
         if (auth.success) {
             navigate("/")
+        } else {
+            setError(auth.error)
         }
     }
 
@@ -36,15 +44,7 @@ export const Form = (): JSX.Element => {
                             <label htmlFor="username" className="label">
                                 User Name
                             </label>
-                            <input type="text" name={"username"} className="input__secondary" onChange={handleChange}/>
-                        </Stack>
-                    </Col>
-                    <Col xs={12} className="field-block">
-                        <Stack className="field">
-                            <label htmlFor="" className="label">
-                                Email
-                            </label>
-                            <input type="text" className="input__secondary" name={"email"} onChange={handleChange}/>
+                            <input type="text" name={"name"} className="input__secondary" onChange={handleChange}/>
                         </Stack>
                     </Col>
                     <Col xs={12} className="field-block">
@@ -52,7 +52,8 @@ export const Form = (): JSX.Element => {
                             <label htmlFor="" className="label">
                                 Password
                             </label>
-                            <input type="text" name={"password"} onChange={handleChange} className="input__secondary"/>
+                            <input type="password" value={data.password} name={"password"} onChange={handleChange}
+                                   className="input__secondary"/>
                         </Stack>
                     </Col>
                     <Col xs={12} className="field-block">
@@ -61,10 +62,11 @@ export const Form = (): JSX.Element => {
                                 Password Confirmation
                             </label>
                             <input
-                                type="text"
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPasswordConf(e.target.value)}
+                                type="password"
+                                onChange={handleChange}
+                                name={"confPassword"}
                                 className="input__secondary"
-                                value={passwordConf}
+                                value={data.confPassword}
                             />
                         </Stack>
                     </Col>

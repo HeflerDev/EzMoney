@@ -8,7 +8,6 @@ import {
 } from "sequelize";
 import sequelize from "../config/Database";
 import Account from "./Account";
-import Transaction from "./Transaction";
 
 export default class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     declare static associations: {
@@ -41,7 +40,7 @@ User.init({
         allowNull: false
     },
     refresh_token: {
-        type: new DataTypes.STRING(128),
+        type: new DataTypes.STRING(256),
         allowNull: true
     },
     createdAt: DataTypes.DATE,
